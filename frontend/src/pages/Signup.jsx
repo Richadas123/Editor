@@ -1,0 +1,338 @@
+// import React, { useState } from 'react';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { ToastContainer } from 'react-toastify';
+// import { handleError, handleSuccess } from '../utils';
+
+// function Signup() {
+//   const [signupInfo, setSignupInfo] = useState({
+//     name: '',
+//     email: '',
+//     password: ''
+//   });
+
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setSignupInfo((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSignup = async (e) => {
+//     e.preventDefault();
+
+//     const { name, email, password } = signupInfo;
+//     if (!name || !email || !password) {
+//       return handleError('Name, email, and password are required');
+//     }
+
+//     try {
+//       const url = `${import.meta.env.VITE_API_URL}/auth/signup`;
+
+//       const response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(signupInfo)
+//       });
+
+//       const result = await response.json();
+//       const { success, message, error } = result;
+
+//       if (success) {
+//         handleSuccess(message);
+//         setTimeout(() => {
+//           navigate('/Login');
+//         }, 1000);
+//       } else if (error) {
+//         const details = error?.details?.[0]?.message || 'Signup failed';
+//         handleError(details);
+//       } else {
+//         handleError(message || 'Signup failed');
+//       }
+//     } catch (err) {
+//       handleError(err.message || 'Something went wrong during signup');
+//     }
+//   };
+
+//   return (
+//     <div className="container">
+//       <h1>Signup</h1>
+//       <form onSubmit={handleSignup}>
+//         <div>
+//           <label htmlFor="name">Name</label>
+//           <input
+//             onChange={handleChange}
+//             type="text"
+//             name="name"
+//             autoFocus
+//             placeholder="Enter your name..."
+//             value={signupInfo.name}
+//           />
+//         </div>
+
+//         <div>
+//           <label htmlFor="email">Email</label>
+//           <input
+//             onChange={handleChange}
+//             type="email"
+//             name="email"
+//             placeholder="Enter your email..."
+//             value={signupInfo.email}
+//           />
+//         </div>
+
+//         <div>
+//           <label htmlFor="password">Password</label>
+//           <input
+//             onChange={handleChange}
+//             type="password"
+//             name="password"
+//             placeholder="Enter your password..."
+//             value={signupInfo.password}
+//           />
+//         </div>
+
+//         <button type="submit">Signup</button>
+
+//         <span>
+//           Already have an account? <Link to="/Login">Login</Link>
+//         </span>
+//       </form>
+
+//       <ToastContainer />
+//     </div>
+//   );
+// }
+
+// export default Signup;
+
+
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { handleError, handleSuccess } from '../utils';
+
+function Signup() {
+  const [signupInfo, setSignupInfo] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSignupInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = signupInfo;
+    if (!name || !email || !password) {
+      return handleError('Name, email, and password are required');
+    }
+
+    try {
+      const url = `${import.meta.env.VITE_API_URL}/auth/signup`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(signupInfo),
+      });
+
+      const result = await response.json();
+      const { success, message, error } = result;
+
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate('/Login');
+        }, 1000);
+      } else if (error) {
+        const details = error?.details?.[0]?.message || 'Signup failed';
+        handleError(details);
+      } else {
+        handleError(message || 'Signup failed');
+      }
+    } catch (err) {
+      handleError(err.message || 'Something went wrong during signup');
+    }
+  };
+
+  return (
+    <div className="center-body">
+      <div className="container">
+        <h1>Signup</h1>
+        <form onSubmit={handleSignup}>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              onChange={handleChange}
+              type="text"
+              name="name"
+              autoFocus
+              placeholder="Enter your name..."
+              value={signupInfo.name}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              onChange={handleChange}
+              type="email"
+              name="email"
+              placeholder="Enter your email..."
+              value={signupInfo.email}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Enter your password..."
+              value={signupInfo.password}
+            />
+          </div>
+
+          <button type="submit">Signup</button>
+
+          <span>
+            Already have an account? <Link to="/Login">Login</Link>
+          </span>
+        </form>
+
+        <ToastContainer />
+      </div>
+    </div>
+  );
+}
+
+export default Signup;
+
+
+
+// import React, { useState } from 'react';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { ToastContainer } from 'react-toastify';
+// import { handleError, handleSuccess } from '../utils';
+// import { FaEye, FaEyeSlash } from 'react-icons/fa'; // 👈 Eye icons
+
+// function Signup() {
+//   const [signupInfo, setSignupInfo] = useState({
+//     name: '',
+//     email: '',
+//     password: ''
+//   });
+
+//   const [showPassword, setShowPassword] = useState(false); // 👈 Toggle state
+
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setSignupInfo((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSignup = async (e) => {
+//     e.preventDefault();
+//     const { name, email, password } = signupInfo;
+//     if (!name || !email || !password) {
+//       return handleError('Name, email, and password are required');
+//     }
+
+//     try {
+//       const url = `${import.meta.env.VITE_API_URL}/auth/signup`;
+
+//       const response = await fetch(url, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(signupInfo),
+//       });
+
+//       const result = await response.json();
+//       const { success, message, error } = result;
+
+//       if (success) {
+//         handleSuccess(message);
+//         setTimeout(() => {
+//           navigate('/Login');
+//         }, 1000);
+//       } else if (error) {
+//         const details = error?.details?.[0]?.message || 'Signup failed';
+//         handleError(details);
+//       } else {
+//         handleError(message || 'Signup failed');
+//       }
+//     } catch (err) {
+//       handleError(err.message || 'Something went wrong during signup');
+//     }
+//   };
+
+//   return (
+//     <div className="center-body">
+//       <div className="container">
+//         <h1>Signup</h1>
+//         <form onSubmit={handleSignup}>
+//           <div>
+//             <label htmlFor="name">Name</label>
+//             <input
+//               onChange={handleChange}
+//               type="text"
+//               name="name"
+//               autoFocus
+//               placeholder="Enter your name..."
+//               value={signupInfo.name}
+//             />
+//           </div>
+
+//           <div>
+//             <label htmlFor="email">Email</label>
+//             <input
+//               onChange={handleChange}
+//               type="email"
+//               name="email"
+//               placeholder="Enter your email..."
+//               value={signupInfo.email}
+//             />
+//           </div>
+
+//           <div className="relative">
+//             <label htmlFor="password">Password</label>
+//             <input
+//               onChange={handleChange}
+//               type={showPassword ? 'text' : 'password'}
+//               name="password"
+//               placeholder="Enter your password..."
+//               value={signupInfo.password}
+//             />
+//             <span
+//               onClick={() => setShowPassword(!showPassword)}
+//               className="absolute right-3 top-9 cursor-pointer text-gray-600"
+//             >
+//               {showPassword ? <FaEyeSlash /> : <FaEye />}
+//             </span>
+//           </div>
+
+//           <button type="submit">Signup</button>
+
+//           <span>
+//             Already have an account? <Link to="/Login">Login</Link>
+//           </span>
+//         </form>
+
+//         <ToastContainer />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Signup;
