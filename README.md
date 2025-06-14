@@ -26,8 +26,6 @@ A simple MERN-based code editor that allows users to write and execute code in v
 - **Backend**: Node.js, Express, MongoDB (Atlas), JWT
 - **Code Execution**: Judge0 API (via proxy server)
 
----
-
 
 ---
 
