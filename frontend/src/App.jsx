@@ -42,18 +42,7 @@ function App() {
   };
 
 
-//   const handleLanguageChange = (newLang, newFilename, newTemplate) => {
-//   setLanguage(newLang);
 
-//   // Always use HelloWorld.java if Java is selected
-//   if (newLang === 'java') {
-//     setFilename('HelloWorld.java');
-//   } else {
-//     setFilename(newFilename);
-//   }
-
-//   setCodeTemplate(newTemplate);
-// };
 
 
   // Editor layout

@@ -40,7 +40,7 @@ const Sidebar = ({ onLanguageChange }) => {
   );
 };
 
-// ✅ PropTypes
+// PropTypes
 Sidebar.propTypes = {
   onLanguageChange: PropTypes.func,
 };

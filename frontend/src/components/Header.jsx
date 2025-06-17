@@ -19,7 +19,7 @@ const Header = ({ onRun, code }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // or sessionStorage if you use that
+    localStorage.removeItem('token'); 
     navigate('/login');
   };
 
@@ -60,7 +60,7 @@ const Header = ({ onRun, code }) => {
   );
 };
 
-// ✅ PropTypes validation
+// PropTypes validation
 Header.propTypes = {
   onRun: PropTypes.func,
   code: PropTypes.string,

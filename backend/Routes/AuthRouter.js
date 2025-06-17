@@ -1,13 +1,3 @@
-// const { signup, login } = require('../Controllers/AuthController');
-// const { signupValidation, loginValidation } = require('../Middlewares/AuthValidation');
-
-// const router = require('express').Router();
-
-// router.post('/login', loginValidation, login);
-// router.post('/signup', signupValidation, signup);
-
-// module.exports = router;
-
 
 
 const { signup, login } = require('../Controllers/AuthController');
@@ -22,7 +12,7 @@ router.post('/signup', signupValidation, signup);
 // Login route
 router.post('/login', loginValidation, login);
 
-// Token verification route for frontend use (e.g., after refresh)
+// Token verification route for frontend use 
 router.get('/verify', ensureAuthenticated, (req, res) => {
   return res.status(200).json({ success: true });
 });
