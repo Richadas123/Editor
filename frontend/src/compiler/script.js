@@ -155,61 +155,61 @@
 // };
 
 
-import axios from 'axios';
+// import axios from 'axios';
 
-export const runCode = async (code, language, setOutput, input) => {
-  setOutput('// Running...');
+// export const runCode = async (code, language, setOutput, input) => {
+//   setOutput('// Running...');
 
-  // Language mapping from Judge0 API
-  const languageMap = {
-    javascript: 63,
-    python: 71,
-    cpp: 54,
-    c: 50,
-    java: 62,
-    // csharp: 51, // optional: only if you add this support
-  };
+//   // Language mapping from Judge0 API
+//   const languageMap = {
+//     javascript: 63,
+//     python: 71,
+//     cpp: 54,
+//     c: 50,
+//     java: 62,
+//     // csharp: 51, // optional: only if you add this support
+//   };
 
-  const languageId = languageMap[language.toLowerCase()];
-  if (!languageId) {
-    setOutput('// Unsupported language selected');
-    return;
-  }
+//   const languageId = languageMap[language.toLowerCase()];
+//   if (!languageId) {
+//     setOutput('// Unsupported language selected');
+//     return;
+//   }
 
-  const encodedSourceCode = btoa(code);
-  const encodedInput = btoa(input || '');
+//   const encodedSourceCode = btoa(code);
+//   const encodedInput = btoa(input || '');
 
-  try {
-    const response = await axios.post(
-      'https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true',
-      {
-        source_code: encodedSourceCode,
-        language_id: languageId,
-        stdin: encodedInput,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-          'X-RapidAPI-Key': '9e60487916msh46b02282c30d596p1f7d57jsn635a973ffa9b', 
-        },
-      }
-    );
+//   try {
+//     const response = await axios.post(
+//       'https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true',
+//       {
+//         source_code: encodedSourceCode,
+//         language_id: languageId,
+//         stdin: encodedInput,
+//       },
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
+//           'X-RapidAPI-Key': '9e60487916msh46b02282c30d596p1f7d57jsn635a973ffa9b', 
+//         },
+//       }
+//     );
 
-    const result = response.data;
+//     const result = response.data;
 
-    if (result.stderr) {
-      setOutput(atob(result.stderr));
-    } else if (result.compile_output) {
-      setOutput(atob(result.compile_output));
-    } else {
-      setOutput(atob(result.stdout || '') || '// No output');
-    }
-  } catch (error) {
-    console.error(error);
-    setOutput('// Error while running code');
-  }
-};
+//     if (result.stderr) {
+//       setOutput(atob(result.stderr));
+//     } else if (result.compile_output) {
+//       setOutput(atob(result.compile_output));
+//     } else {
+//       setOutput(atob(result.stdout || '') || '// No output');
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     setOutput('// Error while running code');
+//   }
+// };
 
 
 
@@ -270,3 +270,37 @@ export const runCode = async (code, language, setOutput, input) => {
 //   }
 // };
 
+
+
+
+
+
+import axios from 'axios';
+
+// ✅ Environment variable (VITE_API_URL) set in .env file
+const API_BASE = import.meta.env.VITE_API_URL;
+
+export const runCode = async (code, language, setOutput, input) => {
+  setOutput('// Running...');
+
+  try {
+    const response = await axios.post(`${API_BASE}/api/judge/run`, {
+      code,
+      language,
+      input,
+    });
+
+    const result = response.data;
+
+    if (result.stderr) {
+      setOutput(atob(result.stderr));
+    } else if (result.compile_output) {
+      setOutput(atob(result.compile_output));
+    } else {
+      setOutput(atob(result.stdout || '') || '// No output');
+    }
+  } catch (error) {
+    console.error('Execution error:', error);
+    setOutput('// Error while running code');
+  }
+};

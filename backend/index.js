@@ -5,13 +5,13 @@ const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter');
 
 
+
 require('dotenv').config();
 require('./Models/db');
 const PORT = process.env.PORT || 5000;
 
-// app.get('/ping', (req, res) => {
-//     res.send('PONG');
-// });
+const JudgeRouter = require('./Routes/JudgeRouter');
+app.use('/api/judge', JudgeRouter);
 
 app.use(bodyParser.json());
 app.use(cors());
